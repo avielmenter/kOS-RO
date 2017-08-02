@@ -42,19 +42,3 @@ FUNCTION hold_altitude { // PID controller to maintain vertical speed of 0 by co
 
     LOCK STEERING TO HEADING(h, 90) * R(0, p, 0).
 }
-
-FUNCTION end_guidance {
-    PARAMETER max_ap IS 300000.
-    PARAMETER min_frac IS .975.
-    PARAMETER should_print IS 1.
-
-    WAIT UNTIL SHIP:PATCHES[0]:PERIAPSIS > min_frac * SHIP:ALTITUDE OR SHIP:PATCHES[0]:APOAPSIS > max_ap.
-
-    IF should_print = 1 { PRINT "Ending launch guidance.". }
-
-    LOCK THROTTLE TO 0.
-    WAIT 3.
-    UNLOCK THROTTLE.
-    UNLOCK STEERING.
-    WAIT 3.
-}

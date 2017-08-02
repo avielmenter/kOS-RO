@@ -36,7 +36,9 @@ WAIT UNTIL SHIP:ALTITUDE > 140000.
 PRINT "Separating Fairings.".
 STAGE.
 
-WAIT UNTIL SHIP:VERTICALSPEED < 20.
+RUNONCEPATH("LaunchGuidance/EndLaunchTrigger.ks").
+
+WAIT UNTIL SHIP:VERTICALSPEED < 20 OR launch_ended().
 PRINT "Circularizing...".
 hold_altitude().
 

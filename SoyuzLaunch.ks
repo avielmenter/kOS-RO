@@ -41,7 +41,9 @@ PRINT "Core stage separation.".
 
 set_pitch_rate(0, 17.5, 1).
 
-WAIT UNTIL SHIP:VERTICALSPEED < 15.
+RUNONCEPATH("LaunchGuidance/EndLaunchTrigger.ks").
+
+WAIT UNTIL SHIP:VERTICALSPEED < 15 OR launch_ended().
 PRINT "Circularizing...".
 hold_altitude().
 
