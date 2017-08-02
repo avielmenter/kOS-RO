@@ -13,6 +13,7 @@ FUNCTION end_guidance {
     IF should_print { PRINT "Ending launch guidance.". }
 
     LOCK THROTTLE TO 0.
+    SET SHIP:CONTROL:PILOTMAINTHROTTLE TO 0.
 
     WAIT 3.
     UNLOCK THROTTLE.

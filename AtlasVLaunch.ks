@@ -25,14 +25,14 @@ PRINT "Initiating gravity turn...".
 set_pitch_rate(.81, 90).
 
 WAIT UNTIL mission_time:SECONDS > 95.
-set_pitch_rate(.27, 30, 1).
+set_pitch_rate(.27, 30, TRUE).
 STAGE.
 
 PRINT "Booster separation.".
 RUNONCEPATH("LaunchGuidance/StagingTriggerUllage.ks", 2, 1).
 
 WAIT UNTIL mission_time:SECONDS > 205.
-set_pitch_rate(0, 0, 1).
+set_pitch_rate(0, 0, TRUE).
 
 WAIT UNTIL mission_time:SECONDS > 223.
 LOCK THROTTLE TO 0.5. // cap acceleration on core stage
@@ -43,7 +43,7 @@ LOCK THROTTLE TO 1.
 WAIT 20.
 WAIT UNTIL SHIP:ALTITUDE > 140000.
 STAGE. // separate fairings
-set_pitch_rate(.05, 0, 1).
+set_pitch_rate(.05, 0, TRUE).
 
 RUNONCEPATH("LaunchGuidance/EndLaunchTrigger.ks").
 

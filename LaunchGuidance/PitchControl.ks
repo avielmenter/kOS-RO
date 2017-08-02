@@ -10,14 +10,14 @@ FUNCTION get_prograde_bearing {  // projects prograde vector onto compass to fin
 }
 
 FUNCTION set_pitch_rate {
-    PARAMETER dps.                  // degrees per second to pitch over
-    PARAMETER start_pitch.          // degrees above the horizon at the start of turn
-    PARAMETER lock_prograde IS 0.   // bearing
+    PARAMETER dps.                      // degrees per second to pitch over
+    PARAMETER start_pitch.              // degrees above the horizon at the start of turn
+    PARAMETER lock_prograde IS FALSE.   // lock rocket to prograde bearing
 
     SET start_time TO time.
     LOCK t TO time - start_time.
 
-    IF lock_prograde > 0 {
+    IF lock_prograde {
         LOCK h TO get_prograde_bearing() - 90.
     } ELSE {
         LOCK h TO 0.
@@ -27,9 +27,9 @@ FUNCTION set_pitch_rate {
 }
 
 FUNCTION hold_altitude { // PID controller to maintain vertical speed of 0 by controlling pitch
-    PARAMETER Kp IS .4.
+    PARAMETER Kp IS 1.
     PARAMETER Ki IS .1.
-    PARAMETER Kd IS 1.5.
+    PARAMETER Kd IS 1.
 
     PARAMETER MIN_PITCH IS -10.
     PARAMETER MAX_PITCH IS 30.
