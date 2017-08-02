@@ -1,8 +1,10 @@
 PARAMETER max_stage.
-PARAMETER curr_stage IS 0.
+PARAMETER set_curr_stage IS 0.
 PARAMETER should_print IS 1.
 PARAMETER ullage_delay IS 1.
 PARAMETER interstage_delay IS 5.
+
+SET curr_stage TO set_curr_stage.
 
 WHEN SHIP:MAXTHRUST = 0 THEN {
     STAGE.

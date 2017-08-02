@@ -1,8 +1,8 @@
 PARAMETER max_stage.
-PARAMETER curr_stage IS 0.
+PARAMETER set_curr_stage IS 0.
 PARAMETER should_print IS 1.
 
-SET curr_stage TO 0.
+SET curr_stage TO set_curr_stage.
 
 WHEN SHIP:MAXTHRUST = 0 THEN {
     STAGE.

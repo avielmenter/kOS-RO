@@ -42,3 +42,16 @@ FUNCTION hold_altitude {
 
     LOCK STEERING TO HEADING(h, 90) * R(0, p, 0).
 }
+
+FUNCTION end_guidance {
+    PARAMETER max_ap IS 300000.
+
+    WAIT UNTIL SHIP:PATCHES[0]:PERIAPSIS > .975 * SHIP:ALTITUDE OR SHIP:PATCHES[0]:APOAPSIS > max_ap.
+
+    PRINT "Ending launch guidance.".
+    LOCK THROTTLE TO 0.
+    WAIT 3.
+    UNLOCK THROTTLE.
+    UNLOCK STEERING.
+    WAIT 3.
+}
