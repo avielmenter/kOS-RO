@@ -10,9 +10,9 @@ FUNCTION get_prograde_bearing {  // projects prograde vector onto compass to fin
 }
 
 FUNCTION set_pitch_rate {
-    PARAMETER dps. // degrees per second to pitch over
-    PARAMETER start_pitch. // degrees above the horizon
-    PARAMETER lock_prograde IS 0. // bearing
+    PARAMETER dps.                  // degrees per second to pitch over
+    PARAMETER start_pitch.          // degrees above the horizon at the start of turn
+    PARAMETER lock_prograde IS 0.   // bearing
 
     SET start_time TO time.
     LOCK t TO time - start_time.
@@ -26,7 +26,7 @@ FUNCTION set_pitch_rate {
     LOCK STEERING TO HEADING(h, 90) * R(0, (90 - start_pitch) + dps * t:SECONDS, 0).
 }
 
-FUNCTION hold_altitude {
+FUNCTION hold_altitude { // PID controller to maintain vertical speed of 0 by controlling pitch
     PARAMETER Kp IS .4.
     PARAMETER Ki IS .1.
     PARAMETER Kd IS 1.5.
@@ -45,10 +45,13 @@ FUNCTION hold_altitude {
 
 FUNCTION end_guidance {
     PARAMETER max_ap IS 300000.
+    PARAMETER min_frac IS .975.
+    PARAMETER should_print IS 1.
 
-    WAIT UNTIL SHIP:PATCHES[0]:PERIAPSIS > .975 * SHIP:ALTITUDE OR SHIP:PATCHES[0]:APOAPSIS > max_ap.
+    WAIT UNTIL SHIP:PATCHES[0]:PERIAPSIS > min_frac * SHIP:ALTITUDE OR SHIP:PATCHES[0]:APOAPSIS > max_ap.
 
-    PRINT "Ending launch guidance.".
+    IF should_print = 1 { PRINT "Ending launch guidance.". }
+
     LOCK THROTTLE TO 0.
     WAIT 3.
     UNLOCK THROTTLE.

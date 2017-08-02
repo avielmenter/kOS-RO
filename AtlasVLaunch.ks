@@ -24,13 +24,13 @@ PRINT "Initiating gravity turn...".
 set_pitch_rate(.81, 90).
 
 WAIT UNTIL mission_time:SECONDS > 95.
-set_pitch_rate(.3, 30, 1).
+set_pitch_rate(.27, 30, 1).
 STAGE.
 
 PRINT "Booster separation.".
 RUNONCEPATH("LaunchGuidance/StagingTriggerUllage.ks", 2, 1).
 
-WAIT UNTIL mission_time:SECONDS > 195.
+WAIT UNTIL mission_time:SECONDS > 205.
 set_pitch_rate(0, 0, 1).
 
 WAIT UNTIL mission_time:SECONDS > 223.
