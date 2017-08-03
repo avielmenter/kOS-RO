@@ -1,6 +1,7 @@
-PARAMETER max_stage.
-PARAMETER set_curr_stage IS 0.
-PARAMETER should_print IS TRUE.
+// Include this file when you want to stage automatically WITHOUT ullage thrusters
+PARAMETER max_stage.                // the last stage that will start automatically
+PARAMETER set_curr_stage IS 0.      // the current stage the rocket is on when this file is included
+PARAMETER should_print IS TRUE.     // should messages print to screen?
 
 SET curr_stage TO set_curr_stage.
 

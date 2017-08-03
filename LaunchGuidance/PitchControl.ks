@@ -9,10 +9,10 @@ FUNCTION get_prograde_bearing {  // projects prograde vector onto compass to fin
     RETURN VANG(northv, pro_compass).
 }
 
-FUNCTION set_pitch_rate {
+FUNCTION set_pitch_rate {   // turns the rocket over at a fixed rate in degrees per second
     PARAMETER dps.                      // degrees per second to pitch over
     PARAMETER start_pitch.              // degrees above the horizon at the start of turn
-    PARAMETER lock_prograde IS FALSE.   // lock rocket to prograde bearing
+    PARAMETER lock_prograde IS FALSE.   // lock rocket to prograde bearing?
 
     SET start_time TO time.
     LOCK t TO time - start_time.
