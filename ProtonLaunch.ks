@@ -7,13 +7,13 @@ CLEARSCREEN.
 PRINT "Initiating launch sequence...".
 PRINT "Throttling up...".
 
+LOCK STEERING TO HEADING(0,90).
 LOCK THROTTLE TO 1.
+
 WAIT 4.25.
 
 PRINT "Liftoff!".
 STAGE.
-
-LOCK STEERING TO HEADING(0,90).
 
 // start mission timer
 SET mission_start TO time.
@@ -38,8 +38,8 @@ STAGE.
 
 RUNONCEPATH("LaunchGuidance/EndLaunchTrigger.ks").
 
-WAIT UNTIL SHIP:VERTICALSPEED < 10 OR launch_ended().
+WAIT UNTIL SHIP:VERTICALSPEED < 20 OR launch_ended().
 PRINT "Circularizing...".
-hold_altitude().
+hold_altitude(launch_ended@).
 
 end_guidance().

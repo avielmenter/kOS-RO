@@ -7,8 +7,8 @@ PRINT "Initiating launch sequence...".
 PRINT "Throttling up...".
 
 LOCK STEERING TO HEADING(0,90).
-
 LOCK THROTTLE TO 1.
+
 STAGE.
 WAIT 4.
 
@@ -43,8 +43,8 @@ set_pitch_rate(0, 17.5, TRUE).
 
 RUNONCEPATH("LaunchGuidance/EndLaunchTrigger.ks").
 
-WAIT UNTIL SHIP:VERTICALSPEED < 15 OR launch_ended().
+WAIT UNTIL SHIP:VERTICALSPEED < 20 OR launch_ended().
 PRINT "Circularizing...".
-hold_altitude().
+hold_altitude(launch_ended@).
 
 end_guidance().

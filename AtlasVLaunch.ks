@@ -25,13 +25,13 @@ PRINT "Initiating gravity turn...".
 set_pitch_rate(.81, 90).
 
 WAIT UNTIL mission_time:SECONDS > 95.
-set_pitch_rate(.27, 30, TRUE).
+set_pitch_rate(.24, 30, TRUE).
 STAGE.
 
 PRINT "Booster separation.".
 RUNONCEPATH("LaunchGuidance/StagingTriggerUllage.ks", 2, 1).
 
-WAIT UNTIL mission_time:SECONDS > 205.
+WAIT UNTIL mission_time:SECONDS > 215.
 set_pitch_rate(0, 0, TRUE).
 
 WAIT UNTIL mission_time:SECONDS > 223.
@@ -49,6 +49,6 @@ RUNONCEPATH("LaunchGuidance/EndLaunchTrigger.ks").
 
 WAIT UNTIL SHIP:VERTICALSPEED < 20 OR launch_ended().
 PRINT "Circularizing...".
-hold_altitude().
+hold_altitude(launch_ended@).
 
 end_guidance().

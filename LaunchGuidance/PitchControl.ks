@@ -27,18 +27,28 @@ FUNCTION set_pitch_rate {   // turns the rocket over at a fixed rate in degrees 
 }
 
 FUNCTION hold_altitude { // PID controller to maintain vertical speed of 0 by controlling pitch
+    PARAMETER cutoff IS { RETURN FALSE. }.
+
+    PARAMETER min_pitch IS -10.
+    PARAMETER max_pitch IS 30.
+
     PARAMETER Kp IS 1.
     PARAMETER Ki IS .1.
     PARAMETER Kd IS 1.
 
-    PARAMETER MIN_PITCH IS -10.
-    PARAMETER MAX_PITCH IS 30.
+    SET start_vspeed TO SHIP:VERTICALSPEED.
 
-    SET pid TO PIDLOOP(Kp, Ki, Kd, MIN_PITCH, MAX_PITCH).
-    SET pid:SETPOINT TO 0.
+    SET pid TO PIDLOOP(Kp, Ki, Kd, min_pitch, max_pitch).
+    SET pid:SETPOINT TO SHIP:VERTICALSPEED.
 
     LOCK h TO get_prograde_bearing() - 90.
     LOCK p TO 90 - pid:UPDATE(time:SECONDS, SHIP:VERTICALSPEED).
 
     LOCK STEERING TO HEADING(h, 90) * R(0, p, 0).
+
+    UNTIL pid:SETPOINT <= 0 OR cutoff() { // I'd prefer to just LOCK pid:SETPOINT, but kOS doesn't support locking of struct members
+        SET pid:SETPOINT TO pid:SETPOINT - 1.
+        PRINT "Current setpoint: " + pid:SETPOINT.
+        WAIT 1.
+    }
 }

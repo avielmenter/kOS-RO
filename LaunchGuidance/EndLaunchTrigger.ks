@@ -5,10 +5,6 @@ PARAMETER should_print IS TRUE. // print messages to the terminal?
 
 SET end_launch TO FALSE.
 
-WHEN (SHIP:PATCHES[0]:PERIAPSIS > min_frac * SHIP:ALTITUDE OR SHIP:PATCHES[0]:APOAPSIS > max_ap) AND SHIP:PATCHES[0]:PERIAPSIS > 140000 THEN {
-    SET end_launch TO TRUE.
-}
-
 FUNCTION end_guidance {
     WAIT UNTIL end_launch.
     IF should_print { PRINT "Ending launch guidance.". }
@@ -24,4 +20,8 @@ FUNCTION end_guidance {
 
 FUNCTION launch_ended {
     RETURN end_launch.
+}
+
+WHEN (SHIP:PATCHES[0]:PERIAPSIS > min_frac * SHIP:ALTITUDE OR SHIP:PATCHES[0]:APOAPSIS > max_ap) AND SHIP:PATCHES[0]:PERIAPSIS > 140000 THEN {
+    SET end_launch TO TRUE.
 }
