@@ -41,10 +41,4 @@ PRINT "Core stage separation.".
 
 set_pitch_rate(0, 17.5, TRUE).
 
-RUNONCEPATH("LaunchGuidance/EndLaunchTrigger.ks").
-
-WAIT UNTIL SHIP:VERTICALSPEED < 20 OR launch_ended().
-PRINT "Circularizing...".
-hold_altitude(launch_ended@).
-
-end_guidance().
+circularize().

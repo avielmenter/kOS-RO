@@ -13,10 +13,4 @@ LOCK THROTTLE TO 1.
 
 // LAUNCH SEQUENCE GOES HERE
 
-RUNONCEPATH("LaunchGuidance/EndLaunchTrigger.ks").
-
-WAIT UNTIL SHIP:VERTICALSPEED < 20 OR launch_ended().
-PRINT "Circularizing...".
-hold_altitude(launch_ended@).
-
-end_guidance().
+circularize().

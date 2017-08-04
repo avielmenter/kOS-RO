@@ -27,7 +27,7 @@ set_pitch_rate(.61, 90).
 WAIT UNTIL mission_time:SECONDS > 132.
 set_pitch_rate(.047, 25, TRUE).
 
-WAIT UNTIL curr_stage = 3.
+WAIT UNTIL get_curr_stage() = 3.
 set_pitch_rate(.14, 25, TRUE).
 
 // wait a few seconds before separating fairings
@@ -36,10 +36,4 @@ WAIT UNTIL SHIP:ALTITUDE > 140000.
 PRINT "Separating Fairings.".
 STAGE.
 
-RUNONCEPATH("LaunchGuidance/EndLaunchTrigger.ks").
-
-WAIT UNTIL SHIP:VERTICALSPEED < 20 OR launch_ended().
-PRINT "Circularizing...".
-hold_altitude(launch_ended@).
-
-end_guidance().
+circularize().

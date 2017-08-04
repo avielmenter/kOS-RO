@@ -1,4 +1,5 @@
 RUNONCEPATH("LaunchGuidance/PitchControl.ks").
+RUNONCEPATH("LaunchGuidance/StagingTriggerUllage.ks", 2, 1).
 
 CLEARSCREEN.
 
@@ -12,6 +13,7 @@ WAIT 2.
 STAGE.
 WAIT 4.
 STAGE.
+increment_stage().
 
 PRINT "Liftoff!".
 PRINT " ".
@@ -29,7 +31,6 @@ set_pitch_rate(.24, 30, TRUE).
 STAGE.
 
 PRINT "Booster separation.".
-RUNONCEPATH("LaunchGuidance/StagingTriggerUllage.ks", 2, 1).
 
 WAIT UNTIL mission_time:SECONDS > 215.
 set_pitch_rate(0, 0, TRUE).
@@ -45,10 +46,4 @@ WAIT UNTIL SHIP:ALTITUDE > 140000.
 STAGE. // separate fairings
 set_pitch_rate(.05, 0, TRUE).
 
-RUNONCEPATH("LaunchGuidance/EndLaunchTrigger.ks").
-
-WAIT UNTIL SHIP:VERTICALSPEED < 20 OR launch_ended().
-PRINT "Circularizing...".
-hold_altitude(launch_ended@).
-
-end_guidance().
+circularize().
