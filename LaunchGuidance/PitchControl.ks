@@ -47,8 +47,9 @@ FUNCTION hold_altitude { // PID controller to maintain vertical speed of 0 by co
     LOCK STEERING TO HEADING(h, 90) * R(0, p, 0).
 
     UNTIL pid:SETPOINT <= 0 OR cutoff() { // I'd prefer to just LOCK pid:SETPOINT, but kOS doesn't support locking of struct members
-        SET pid:SETPOINT TO pid:SETPOINT - 1.
-        PRINT "Current setpoint: " + pid:SETPOINT.
         WAIT 1.
+        SET pid:SETPOINT TO pid:SETPOINT - 1.
     }
+
+    SET pid:SETPOINT to 0.
 }
