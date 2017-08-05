@@ -1,5 +1,5 @@
 // initialization
-RUNONCEPATH("LaunchGuidance/StagingTriggerUllage.ks", 3, 1).
+RUNONCEPATH("LaunchGuidance/StagingTriggerUllage.ks", 4, 2).
 RUNONCEPATH("LaunchGuidance/PitchControl.ks").
 
 CLEARSCREEN.
@@ -12,8 +12,6 @@ LOCK THROTTLE TO 1.
 
 WAIT 2.
 STAGE.
-WAIT 4.5.
-STAGE.
 increment_stage().
 
 PRINT "Liftoff!".
@@ -22,23 +20,30 @@ PRINT "Liftoff!".
 SET mission_start TO time.
 LOCK mission_time TO time - mission_start.
 
-WAIT UNTIL SHIP:ALTITUDE > 1500. // 18 seconds
+WAIT UNTIL SHIP:ALTITUDE > 1500. // 21 seconds
 PRINT "Initiating gravity turn...".
-set_pitch_rate(.735, 90).
+set_pitch_rate(.606, 90).
+
+WAIT UNTIL mission_time:SECONDS > 115.
+STAGE.
+PRINT "Igniting main engine.".
 
 WAIT UNTIL mission_time:SECONDS > 120.
 STAGE.
 PRINT "Booster separation".
-set_pitch_rate(.21, 15, TRUE).
+PRINT " ".
+increment_stage().
 
-WAIT UNTIL get_curr_stage() >= 2.
-set_pitch_rate(.048, 20, TRUE).
+set_pitch_rate(.105, 30, TRUE).
+
+WAIT UNTIL get_curr_stage() >= 3.
+set_pitch_rate(.03, 20, TRUE).
 
 WAIT 20.
 STAGE.
 PRINT "Separating fairings.".
 
-WAIT UNTIL get_curr_stage() >= 3.
-set_pitch_rate(0, 16, TRUE).
+WAIT UNTIL get_curr_stage() >= 4.
+set_pitch_rate(.05, 16, TRUE).
 
 circularize().
