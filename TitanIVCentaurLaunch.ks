@@ -36,12 +36,12 @@ increment_stage().
 
 set_pitch_rate(.105, 30, TRUE).
 
-WAIT UNTIL get_curr_stage() >= 3.
-set_pitch_rate(.03, 20, TRUE).
-
-WAIT 20.
+WAIT UNTIL mission_time:SECONDS > 220.
 STAGE.
 PRINT "Separating fairings.".
+
+WAIT UNTIL get_curr_stage() >= 3.
+set_pitch_rate(.03, 20, TRUE).
 
 WAIT UNTIL get_curr_stage() >= 4.
 set_pitch_rate(.05, 16, TRUE).
