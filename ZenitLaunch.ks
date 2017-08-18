@@ -1,5 +1,7 @@
+PARAMETER max_stage IS 2. // 2 for Zenit 2, 3 for Zenit 3SL
+
 // initialization
-RUNONCEPATH("LaunchGuidance/StagingTrigger.ks", 3).
+RUNONCEPATH("LaunchGuidance/StagingTrigger.ks", max_stage).
 RUNONCEPATH("LaunchGuidance/PitchControl.ks").
 
 CLEARSCREEN.
