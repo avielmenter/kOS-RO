@@ -34,11 +34,11 @@ set_pitch_rate(.13, 25, TRUE).
 WAIT UNTIL mission_time:SECONDS > 161.
 AG10 ON. // eject launch escape tower
 
-WAIT UNTIL mission_time:SECONDS > 277.
+WAIT UNTIL SHIP:MAXTHRUST = 0.
 STAGE.
 PRINT " ".
 PRINT "Core stage separation.".
 
-set_pitch_rate(0, 17.5, TRUE).
+set_pitch_rate(.05, 17.5, TRUE).
 
 circularize().
